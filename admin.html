@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Property Scouts Bangalore</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a472a;
+            --secondary: #2d5a3d;
+            --accent: #d4a574;
+            --light-bg: #f5f6f8;
+            --dark-text: #1c1e21;
+            --gray-text: #5f6368;
+            --border: #dadce0;
+            --white: #ffffff;
+            --pending: #f2994a;
+            --dispatched: #2f80ed;
+            --completed: #27ae60;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.06);
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        .dash-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 2.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dash-title h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .dash-title p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            margin-top: 0.3rem;
+        }
+
+        .refresh-btn {
+            background: rgba(255,255,255,0.15);
+            color: var(--white);
+            border: 1.5px solid rgba(255,255,255,0.25);
+            padding: 0.8rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: var(--white);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* ===== METRICS SUMMARY ===== */
+        .dash-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            padding: 2rem 3rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metric-card {
+            background: var(--white);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: var(--white);
+        }
+
+        .metric-info h3 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--dark-text);
+        }
+
+        .metric-info p {
+            font-size: 0.8rem;
+            color: var(--gray-text);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== GOOGLE SHEET TYPE TABLE ===== */
+        .sheet-container {
+            padding: 3rem;
+        }
+
+        .sheet-info-bar {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .sheet-table-wrapper {
+            overflow-x: auto;
+            border: 1.5px solid #bdc1c6;
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .sheet-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .sheet-table th, 
+        .sheet-table td {
+            border: 1px solid #dadce0;
+            padding: 1rem 1.2rem;
+            vertical-align: middle;
+        }
+
+        .sheet-table th {
+            background-color: #f1f3f4;
+            color: #5f6368;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            text-align: center;
+            user-select: none;
+        }
+
+        .sheet-table .column-headers th {
+            background-color: #f8f9fa;
+            color: var(--dark-text);
+            font-size: 0.85rem;
+            text-transform: none;
+            text-align: left;
+            padding: 1rem 1.2rem;
+        }
+
+        .sheet-table .row-num {
+            background-color: #f1f3f4;
+            color: #5f6368;
+            font-weight: 700;
+            width: 50px;
+            text-align: center;
+            user-select: none;
+            border-right: 2px solid #dadce0;
+        }
+
+        .sheet-table tr:hover td {
+            background-color: #f8fafd;
+        }
+
+        /* Status Dropdowns */
+        .status-select {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 130px;
+            text-align: center;
+        }
+
+        .status-select.pending {
+            background-color: #fef3c7;
+            color: #d97706;
+        }
+
+        .status-select.dispatched {
+            background-color: #dbeafe;
+            color: #2563eb;
+        }
+
+        .status-select.completed {
+            background-color: #d1fae5;
+            color: #059669;
+        }
+
+        .whatsapp-btn {
+            background-color: #25D366;
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: opacity 0.2s ease;
+        }
+
+        .whatsapp-btn:hover {
+            opacity: 0.9;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 4rem !important;
+            color: var(--gray-text);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 1024px) {
+            .dash-metrics { grid-template-columns: repeat(2, 1fr); padding: 1.5rem 2rem; }
+            .sheet-container { padding: 1.5rem; }
+            .dash-header { padding: 2rem; }
+        }
+
+        @media (max-width: 600px) {
+            .dash-metrics { grid-template-columns: 1fr; }
+            .dash-header { flex-direction: column; gap: 1.5rem; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard-container">
+        <!-- HEADER -->
+        <div class="dash-header">
+            <div class="dash-title">
+                <h1><i class="fas fa-database"></i> Property Scouts Booking Engine</h1>
+                <p>Manage on-site enquiries, assign scouts, and track analytics live</p>
+            </div>
+            <button class="refresh-btn" onclick="fetchBookings()">
+                <i class="fas fa-sync-alt" id="refresh-icon"></i> Refresh Database
+            </button>
+        </div>
+
+        <!-- METRICS -->
+        <div class="dash-metrics">
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: var(--dispatched);"><i class="fas fa-clipboard-list"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-total">0</h3>
+                    <p>Total Bookings</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: var(--pending);"><i class="fas fa-hourglass-half"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-pending">0</h3>
+                    <p>Pending Scouts</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: var(--completed);"><i class="fas fa-check-circle"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-completed">0</h3>
+                    <p>Completed Visits</p>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon" style="background-color: var(--accent);"><i class="fas fa-rupee-sign"></i></div>
+                <div class="metric-info">
+                    <h3 id="stat-revenue">₹0</h3>
+                    <p>Estimated Revenue</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SPREADSHEET TABLE -->
+        <div class="sheet-container">
+            <div class="sheet-info-bar">
+                <span><i class="fas fa-table"></i> SQLite Database view: `bookings` Table</span>
+                <span id="booking-count">Loading enquiries...</span>
+            </div>
+
+            <div class="sheet-table-wrapper">
+                <table class="sheet-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>A</th>
+                            <th>B</th>
+                            <th>C</th>
+                            <th>D</th>
+                            <th>E</th>
+                            <th>F</th>
+                        </tr>
+                        <tr class="column-headers">
+                            <th></th>
+                            <th>Booking ID</th>
+                            <th>Client Name</th>
+                            <th>WhatsApp Contact</th>
+                            <th>Property Link / Address</th>
+                            <th>Inspection Date & Time</th>
+                            <th>Scout Status Dropdown</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-tbody">
+                        <!-- Bookings will be loaded here dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateStats(bookings) {
+            const total = bookings.length;
+            const pending = bookings.filter(b => b.status === 'Pending').length;
+            const completed = bookings.filter(b => b.status === 'Completed').length;
+            
+            // Single visit is ₹1,499. Let's compute estimated revenue!
+            const revenue = completed * 1499;
+
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-pending').innerText = pending;
+            document.getElementById('stat-completed').innerText = completed;
+            document.getElementById('stat-revenue').innerText = '₹' + revenue.toLocaleString();
+            document.getElementById('booking-count').innerText = `${total} records found in bookings.db`;
+        }
+
+        function changeStatus(bookingId, selectElement) {
+            const newStatus = selectElement.value;
+            
+            // Adjust class of dropdown for styling
+            selectElement.className = `status-select ${newStatus.toLowerCase()}`;
+
+            fetch(`/api/bookings/${bookingId}/status`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status: newStatus })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    console.log(`Booking #${bookingId} status updated to ${newStatus}`);
+                    // Re-fetch to update metrics dynamically
+                    fetchBookings(false);
+                } else {
+                    alert("Failed to update status: " + data.error);
+                }
+            })
+            .catch(err => {
+                console.error("Error updating status:", err);
+                alert("Database update failed. Check network console.");
+            });
+        }
+
+        function fetchBookings(showSpinner = true) {
+            const icon = document.getElementById('refresh-icon');
+            if (showSpinner && icon) {
+                icon.style.animation = 'spin 1s linear infinite';
+            }
+
+            fetch('/api/bookings')
+            .then(res => res.json())
+            .then(bookings => {
+                const tbody = document.getElementById('bookings-tbody');
+                tbody.innerHTML = '';
+
+                if (bookings.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td class="row-num">1</td>
+                            <td colspan="6" class="no-data">
+                                <i class="fas fa-folder-open" style="font-size: 2rem; display:block; margin-bottom: 1rem; color: #ccc;"></i>
+                                No property scout enquiries in the SQLite database yet.
+                            </td>
+                        </tr>
+                    `;
+                    updateStats([]);
+                    return;
+                }
+
+                bookings.forEach((booking, index) => {
+                    const row = document.createElement('tr');
+                    
+                    // Format dates beautifully
+                    const formattedDate = new Date(booking.preferred_date).toLocaleString();
+                    const cleanPhone = booking.whatsapp.replace(/[^0-9]/g, '');
+
+                    // Pre-render status options
+                    const statusOptions = ['Pending', 'Dispatched', 'Completed'].map(status => {
+                        const selected = booking.status === status ? 'selected' : '';
+                        return `<option value="${status}" ${selected}>${status}</option>`;
+                    }).join('');
+
+                    row.innerHTML = `
+                        <td class="row-num">${index + 1}</td>
+                        <td style="font-weight: 700; color: var(--primary);">#PS-${1000 + booking.id}</td>
+                        <td style="font-weight: 600;">${booking.name}</td>
+                        <td>
+                            <a href="https://wa.me/${cleanPhone}" target="_blank" class="whatsapp-btn">
+                                <i class="fab fa-whatsapp"></i> ${booking.whatsapp}
+                            </a>
+                        </td>
+                        <td style="max-width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${booking.property_details}">
+                            ${booking.property_details}
+                        </td>
+                        <td style="font-weight: 500; color: var(--gray-text);">${formattedDate}</td>
+                        <td>
+                            <select class="status-select ${booking.status.toLowerCase()}" onchange="changeStatus(${booking.id}, this)">
+                                ${statusOptions}
+                            </select>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                updateStats(bookings);
+            })
+            .catch(err => {
+                console.error("Error loading bookings from API:", err);
+            })
+            .finally(() => {
+                if (showSpinner && icon) {
+                    icon.style.animation = 'none';
+                }
+            });
+        }
+
+        // Auto load on start
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchBookings();
+        });
+    </script>
+
+    <style>
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,1465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Scouts Bangalore - Expert Home Verification</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a472a;
+            --secondary: #2d5a3d;
+            --accent: #d4a574;
+            --light-bg: #f5f5f5;
+            --dark-text: #1a1a1a;
+            --gray-text: #666;
+            --border: #e0e0e0;
+            --white: #ffffff;
+            --success: #4a9d6f;
+            --purple: #7c3aed;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            color: var(--dark-text);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 3rem;
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-sub {
+            font-size: 0.6rem;
+            color: var(--gray-text);
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--dark-text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--accent) 0%, #e5b897 100%);
+            color: var(--primary);
+            padding: 0.7rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            padding: 5rem 3rem;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(245,245,245,0.5) 0%, rgba(255,255,255,0.8) 100%);
+            min-height: 90vh;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .hero-content h1 .accent-text {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            margin-bottom: 2.5rem;
+            line-height: 1.8;
+            max-width: 500px;
+            animation: slideInLeft 0.8s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+            animation: slideInLeft 0.8s ease 0.4s both;
+        }
+
+        .btn-large {
+            padding: 1rem 2.8rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            box-shadow: 0 6px 20px rgba(26, 71, 42, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(26, 71, 42, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2.5px solid var(--primary);
+            font-weight: 700;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            animation: slideInLeft 0.8s ease 0.6s both;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 8px 20px rgba(212, 165, 116, 0.15);
+        }
+
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--gray-text);
+            font-weight: 600;
+            margin-top: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero-image {
+            position: relative;
+            animation: slideInRight 0.8s ease;
+            z-index: 2;
+        }
+
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* ===== SERVICES SECTION ===== */
+        .services {
+            padding: 6rem 3rem;
+            background: var(--white);
+            position: relative;
+        }
+
+        .services::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent 0%, var(--border) 50%, transparent 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-header h2 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.05) 0%, rgba(124, 58, 237, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            transform: translateY(-10px);
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .service-card h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .service-card p {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 6rem 3rem;
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+            position: relative;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .process-step {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            text-align: center;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            border-color: var(--accent);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .process-step::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -2rem;
+            width: 4rem;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent), transparent);
+            z-index: -1;
+        }
+
+        .process-step:last-child::after {
+            display: none;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.8rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .process-step h3 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .process-step p {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            padding: 6rem 3rem;
+            background: var(--white);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            margin-top: 4rem;
+        }
+
+        .pricing-card {
+            background: var(--white);
+            border: 2px solid var(--border);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.03) 0%, rgba(124, 58, 237, 0.03) 100%);
+            z-index: -1;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            transform: scale(1.08);
+            box-shadow: 0 25px 60px rgba(212, 165, 116, 0.2);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 800;
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            margin-top: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .price {
+            font-size: 3.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--purple) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 1.5rem 0;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 2.5rem;
+            text-align: left;
+        }
+
+        .features-list li {
+            padding: 1rem 0;
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 500;
+        }
+
+        .features-list li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 900;
+            font-size: 1.3rem;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ===== GALLERY SECTION ===== */
+        .gallery {
+            padding: 6rem 3rem;
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--white) 100%);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            height: 350px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(26, 71, 42, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-text {
+            color: var(--white);
+            text-align: center;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            padding: 6rem 3rem;
+            background: var(--white);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2.5rem;
+            max-width: 1300px;
+            margin: 0 auto;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stars {
+            color: #ffc107;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-text {
+            color: var(--gray-text);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* ===== GOOGLE SHEET TYPE MODAL GRID ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(8px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 3.5rem;
+            border-radius: 30px;
+            box-shadow: 0 35px 80px rgba(0,0,0,0.25);
+            position: relative;
+            animation: slideUp 0.4s ease;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--light-bg);
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--gray-text);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        .modal-header h2 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-header p {
+            color: var(--gray-text);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .sheet-container {
+            margin: 2rem 0;
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .sheet-info {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sheet-table-wrapper {
+            overflow-x: auto;
+            border: 1.5px solid #bdc1c6;
+            border-radius: 8px;
+            background: var(--white);
+        }
+
+        .sheet-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .sheet-table th, 
+        .sheet-table td {
+            border: 1px solid #dadce0;
+            padding: 0.8rem 1rem;
+            vertical-align: middle;
+        }
+
+        .sheet-table th {
+            background-color: #f1f3f4;
+            color: #5f6368;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            text-align: center;
+            user-select: none;
+        }
+
+        .sheet-table .column-headers th {
+            background-color: #f8f9fa;
+            color: var(--dark-text);
+            font-size: 0.85rem;
+            text-transform: none;
+            text-align: left;
+            padding: 0.8rem 1rem;
+        }
+
+        .sheet-table .row-num {
+            background-color: #f1f3f4;
+            color: #5f6368;
+            font-weight: 700;
+            width: 40px;
+            text-align: center;
+            user-select: none;
+            border-right: 2px solid #dadce0;
+        }
+
+        .sheet-cell {
+            outline: none;
+            min-height: 40px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .sheet-cell[contenteditable="true"]:focus {
+            background-color: #e8f0fe;
+            box-shadow: inset 0 0 0 2px #1a73e8;
+        }
+
+        .sheet-cell:empty::before {
+            content: attr(data-placeholder);
+            color: #999;
+            font-style: italic;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(26, 71, 42, 0.3);
+        }
+
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .success-message.active {
+            display: block;
+        }
+
+        .success-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: var(--success);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 4rem 3rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+        }
+
+        .footer-section a {
+            display: block;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 2;
+        }
+
+        .footer-section p {
+            color: rgba(255,255,255,0.85);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+
+        @media (max-width: 1024px) {
+            .hero { grid-template-columns: 1fr; padding: 3rem 2rem; }
+            .process-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-step::after { display: none; }
+            .pricing-card.featured { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 1rem; padding: 1rem; }
+            nav { flex-direction: column; gap: 1rem; width: 100%; }
+            .hero-stats { grid-template-columns: 1fr; }
+            .services, .how-it-works, .pricing, .gallery, .testimonials { padding: 3rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div>
+            <div class="logo" onclick="window.scrollTo(0,0)">PROPERTY SCOUTS</div>
+            <div class="logo-sub">Bangalore</div>
+        </div>
+        <nav>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#services">Services</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#pricing">Pricing</a>
+            <button class="cta-btn" onclick="openModal()">Book a Scout</button>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Our Expert <span class="accent-text">Scouts Check Everything,</span> So You Don't Have To.</h1>
+            <p>Moving to Bangalore? Our trained professionals verify every critical aspect of your potential home—from internet speeds to water quality. Get the complete truth before you commit.</p>
+            
+            <div class="hero-buttons">
+                <button class="btn-large btn-primary" onclick="openModal()">Book a Scout Now</button>
+                <a href="#how-it-works" class="btn-large btn-secondary">Explore Process</a>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-number">₹1,499</div>
+                    <div class="stat-label">Per Visit</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3<span style="font-size: 0.6em;">hrs</span></div>
+                    <div class="stat-label">Quick Report</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Unbiased</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-image">
+            <div class="image-container">
+                <img src="scout_hero_bg.png" alt="Property inspection scout in Bangalore">
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Complete Home Verification</h2>
+            <p>We inspect every critical aspect so you make informed decisions with complete confidence</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌐</div>
+                <h3>Internet Speed</h3>
+                <p>Master bedroom WiFi testing on Airtel & Jio. Essential for WFH professionals.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💧</div>
+                <h3>Water Quality</h3>
+                <p>TDS level measurement. Know if water is safe for drinking and daily use.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🚶</div>
+                <h3>Real Commute</h3>
+                <p>Actual walking time to metro, roads, and tech parks. Not Google estimates.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎵</div>
+                <h3>Noise Levels</h3>
+                <p>Check for construction, traffic, and neighborhood disturbances. Honest assessment.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📹</div>
+                <h3>4K Video Tour</h3>
+                <p>Unedited professional walkthrough showing exact property condition.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Detailed Report</h3>
+                <p>Complete audit with scoring system. Everything documented clearly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <h2>Our Process</h2>
+            <p>Simple, transparent, and completely hassle-free</p>
+        </div>
+
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="step-number">1</div>
+                <h3>Share Property</h3>
+                <p>Send us the property link from NoBroker, 99acres, or Facebook. Takes 1 minute.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">2</div>
+                <h3>We Deploy Scout</h3>
+                <p>Our verified professional visits within your preferred time slot. Fully equipped.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">3</div>
+                <h3>Complete Audit</h3>
+                <p>We test everything: internet, water, noise, commute, electricity, structure.</p>
+            </div>
+
+            <div class="process-step">
+                <div class="step-number">4</div>
+                <h3>Get Results</h3>
+                <p>4K video + detailed scorecard delivered on WhatsApp within 3 hours.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY SECTION -->
+    <section class="gallery" id="gallery">
+        <div class="section-header">
+            <h2>Real Verifications</h2>
+            <p>See what our scouts actually check during property inspections</p>
+        </div>
+
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="post1_property_walkthrough.jpeg" alt="Property Walkthrough">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Property Walkthrough</h3>
+                        <p>Complete visual inspection</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="post2_speed_test.jpeg" alt="Internet Speed Test">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Internet Speed Test</h3>
+                        <p>Real-time verification</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="post3_hard_water.png" alt="Water Quality Check">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Water Quality Check</h3>
+                        <p>TDS measurement included</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="post4_nearest_Commute.jpeg" alt="Commute Verification">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Commute Verification</h3>
+                        <p>Actual walking time tested</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="post5_4kvideo.png" alt="4K Video Report">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>4K Video Report</h3>
+                        <p>Unedited professional footage</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="gallery-item">
+                <img src="post6_detailed_report.jpeg" alt="Detailed Scorecard">
+                <div class="gallery-overlay">
+                    <div class="gallery-text">
+                        <h3>Detailed Scorecard</h3>
+                        <p>Complete assessment report</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section class="pricing" id="pricing">
+        <div class="section-header">
+            <h2>Transparent Pricing</h2>
+            <p>No hidden charges. No surprises. Just honest, straightforward pricing.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Single Scout</h3>
+                <div class="price">₹1,499</div>
+                <div class="price-sub">One property verification</div>
+                <ul class="features-list">
+                    <li>Complete verification</li>
+                    <li>4K video walkthrough</li>
+                    <li>Detailed scorecard</li>
+                    <li>3-hour delivery</li>
+                    <li>WhatsApp support</li>
+                </ul>
+                <button class="pricing-btn" onclick="openModal()">Book Now</button>
+            </div>
+
+            <div class="pricing-card featured">
+                <div class="pricing-badge">Most Popular</div>
+                <h3>Bulk Scout (5)</h3>
+                <div class="price">₹6,999</div>
+                <div class="price-sub">₹1,400 per visit (Save 6%)</div>
+                <ul class="features-list">
+                    <li>All single features</li>
+                    <li>Priority scheduling</li>
+                    <li>Comparison analysis</li>
+                    <li>Free consultation</li>
+                    <li>Faster processing</li>
+                </ul>
+                <button class="pricing-btn" onclick="openModal()">Book Bulk</button>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Corporate Plan</h3>
+                <div class="price">Custom</div>
+                <div class="price-sub">50+ employee relocations</div>
+                <ul class="features-list">
+                    <li>Volume discounts</li>
+                    <li>Dedicated team</li>
+                    <li>Custom reports</li>
+                    <li>HR integration</li>
+                    <li>Annual contract</li>
+                </ul>
+                <button class="pricing-btn" onclick="openModal()">Contact Sales</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSTAGRAM SECTION -->
+    <section class="gallery" id="instagram-feed" style="background: var(--white); padding: 5rem 3rem; border-top: 1px solid var(--border);">
+        <div class="section-header">
+            <h2 style="font-size: 3rem;"><i class="fab fa-instagram" style="color: #e1306c; margin-right: 0.5rem;"></i> Scouts Live on Instagram</h2>
+            <p>Follow our daily physical verifications and live updates across Bangalore: <a href="https://www.instagram.com/blrscout/" target="_blank" style="color: var(--primary); font-weight: 700; text-decoration: underline;">@blrscout</a></p>
+        </div>
+
+        <div class="gallery-grid" style="margin-top: 2rem;">
+            <!-- Post 1 -->
+            <a href="https://www.instagram.com/blrscout/" target="_blank" class="gallery-item" style="text-decoration: none;">
+                <img src="scout_hero_bg.png" alt="Scout physical visit">
+                <div class="gallery-overlay" style="background: rgba(225, 48, 108, 0.85);">
+                    <div class="gallery-text">
+                        <i class="fab fa-instagram" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>On-Site Inspection</h3>
+                        <p>Testing water TDS in Whitefield flat 💧</p>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.8;">Click to view on Instagram</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 2 -->
+            <a href="https://www.instagram.com/blrscout/" target="_blank" class="gallery-item" style="text-decoration: none;">
+                <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #833ab4 0%, #fd1d1d 50%, #fcb045 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; padding: 2rem; text-align: center;">
+                    <i class="fab fa-instagram" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                    <h3 style="font-weight: 800; font-size: 1.4rem;">@blrscout</h3>
+                    <p style="font-size: 0.95rem; margin-top: 0.5rem; opacity: 0.9;">Watch our daily Reels detailing property tricks, hidden damages, and neighborhood reviews in Bengaluru!</p>
+                </div>
+                <div class="gallery-overlay" style="background: rgba(225, 48, 108, 0.85);">
+                    <div class="gallery-text">
+                        <i class="fab fa-instagram" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Watch Reels</h3>
+                        <p>Reality checks of listing photos 📸</p>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.8;">Click to watch live feed</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Post 3 -->
+            <a href="https://www.instagram.com/blrscout/" target="_blank" class="gallery-item" style="text-decoration: none;">
+                <img src="property_scouts_social_ad.png" alt="Property verification scorecard">
+                <div class="gallery-overlay" style="background: rgba(225, 48, 108, 0.85);">
+                    <div class="gallery-text">
+                        <i class="fab fa-instagram" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                        <h3>Scout Vitals</h3>
+                        <p>Broadband speeds & decibel tests in Bellandur 📶</p>
+                        <p style="font-size: 0.8rem; margin-top: 1rem; opacity: 0.8;">Click to view post</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2>Loved by Relocators</h2>
+            <p>See what people say after using Property Scouts</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"I was ready to pay ₹2 lakhs advance on a flat with terrible water quality and weak WiFi. The scout report saved me from a huge mistake. This service is invaluable!"</p>
+                <div style="font-weight: 800; color: var(--dark-text);">Rahul Sharma</div>
+                <div style="font-size: 0.85rem; color: var(--gray-text);">Software Engineer</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Quick, professional, and brutally honest. They found construction noise we completely missed. Checked 3 properties in 2 days and found the perfect one."</p>
+                <div style="font-weight: 800; color: var(--dark-text);">Priya Menon</div>
+                <div style="font-size: 0.85rem; color: var(--gray-text);">Product Manager</div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Our HR team now uses them for all relocations. Employees feel genuinely cared for. Makes onboarding personal and human. Best investment in employee experience."</p>
+                <div style="font-weight: 800; color: var(--dark-text);">Anand Khurana</div>
+                <div style="font-size: 0.85rem; color: var(--gray-text);">HR Director, Tech Company</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section style="background: linear-gradient(135deg, #1a472a 0%, #2d5a3d 100%); padding: 5rem 3rem; text-align: center; color: white; margin: 4rem 3rem; border-radius: 30px;">
+        <h2 style="font-size: 2.8rem; margin-bottom: 1.5rem; font-weight: 900;">Ready for Honest Property Verification?</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 2.5rem; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.7;">Stop guessing from afar. Get professional, unbiased verification from someone on the ground. Your next 5 years deserve better.</p>
+        <button class="cta-btn" onclick="openModal()">Book Your Scout Today</button>
+    </section>
+
+    <!-- BOOKING MODAL -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content" style="max-width: 800px; width: 95%;">
+            <button class="modal-close" onclick="closeModal()">&times;</button>
+
+            <div id="formScreen">
+                <div class="modal-header">
+                    <h2>Book Your Scout</h2>
+                    <p>Enter your details in the spreadsheet grid below to confirm your booking</p>
+                </div>
+
+                <div class="sheet-container">
+                    <div class="sheet-info">
+                        <i class="fas fa-info-circle"></i> Click inside any white cell below to fill out your details!
+                    </div>
+                    <div class="sheet-table-wrapper">
+                        <table class="sheet-table">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>A</th>
+                                    <th>B</th>
+                                    <th>C</th>
+                                    <th>D</th>
+                                </tr>
+                                <tr class="column-headers">
+                                    <th></th>
+                                    <th>Full Name</th>
+                                    <th>WhatsApp Number</th>
+                                    <th>Property Link / Address</th>
+                                    <th>Preferred Visit Date & Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="row-num">1</td>
+                                    <td class="sheet-cell" contenteditable="true" data-placeholder="e.g. Rahul Sharma" id="cell-name"></td>
+                                    <td class="sheet-cell" contenteditable="true" data-placeholder="e.g. +91 8738833206" id="cell-whatsapp"></td>
+                                    <td class="sheet-cell" contenteditable="true" data-placeholder="e.g. paste NoBroker link or address" id="cell-property"></td>
+                                    <td class="sheet-cell" id="cell-date-container" style="padding: 0;">
+                                        <input type="datetime-local" id="cell-date" style="border: none; width: 100%; height: 100%; padding: 0.8rem 1rem; outline: none; font-family: inherit; font-size: 0.9rem; background: transparent; cursor: pointer;">
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <button class="submit-btn" onclick="submitBookingSheet()">Confirm Booking</button>
+            </div>
+
+            <div id="successScreen" class="success-message">
+                <div class="success-icon" style="color: #25D366; font-size: 5rem; margin-bottom: 1.5rem;"><i class="fab fa-whatsapp animate__animated animate__bounceIn"></i></div>
+                <h3 style="font-size: 2.2rem; font-weight: 900; color: var(--primary); margin-bottom: 1rem;">Details Logged!</h3>
+                <p style="font-size: 1.1rem; color: var(--gray-text); line-height: 1.7; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto;">
+                    Your enquiry has been successfully saved in our dashboard. 
+                </p>
+                <div style="background: rgba(37, 211, 102, 0.05); padding: 1.5rem; border-radius: 12px; border-left: 4px solid #25D366; text-align: left; max-width: 500px; margin: 0 auto 2.5rem; font-size: 0.95rem; line-height: 1.6;">
+                    <strong style="color: #128C7E; display: block; margin-bottom: 0.5rem;"><i class="fas fa-arrow-right"></i> Complete Your Booking on WhatsApp:</strong>
+                    To dispatch your scout, click the button below to send your structured enquiry directly to our dispatch desk (**+91 8738833206**).
+                </div>
+                
+                <a id="whatsapp-link" href="#" target="_blank" class="btn-large" style="background: linear-gradient(135deg, #25D366 0%, #128C7E 100%); color: white; display: flex; align-items: center; justify-content: center; gap: 0.8rem; width: 100%; max-width: 400px; margin: 0 auto 2rem; text-decoration: none; border-radius: 30px; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3); font-weight: 700; padding: 1.2rem;">
+                    <i class="fab fa-whatsapp" style="font-size: 1.6rem;"></i>
+                    Send Details on WhatsApp
+                </a>
+                
+                <button class="submit-btn" onclick="closeModal()" style="max-width: 250px; margin: 0 auto; background: #e0e0e0; color: var(--dark-text);">Done</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Property Scouts</h3>
+                <p>Expert property verification for Bangalore relocators. Honest, professional, reliable.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#gallery">Gallery</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>📱 WhatsApp: +91 8738833206</p>
+                <p>📧 threebrotherss100@gmail.com</p>
+                <p>📸 Instagram: <a href="https://www.instagram.com/blrscout/" target="_blank" style="color: rgba(255,255,255,0.85); text-decoration: underline;">@blrscout</a></p>
+                <p>📍 Bangalore, India</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Property Scouts Bangalore. All rights reserved. | Honest property verification.</p>
+        </div>
+    </footer>
+
+    <script>
+        function openModal() {
+            document.getElementById('bookingModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Clear cells
+            document.getElementById('cell-name').innerText = '';
+            document.getElementById('cell-whatsapp').innerText = '';
+            document.getElementById('cell-property').innerText = '';
+            document.getElementById('cell-date').value = '';
+            
+            document.getElementById('formScreen').style.display = 'block';
+            document.getElementById('successScreen').classList.remove('active');
+        }
+
+        function submitBookingSheet() {
+            const name = document.getElementById('cell-name').innerText.trim();
+            const whatsapp = document.getElementById('cell-whatsapp').innerText.trim();
+            const property = document.getElementById('cell-property').innerText.trim();
+            const date = document.getElementById('cell-date').value;
+
+            if (!name || !whatsapp || !property || !date) {
+                alert("Please fill in all spreadsheet cells (Name, WhatsApp, Property, and Date/Time) before submitting.");
+                return;
+            }
+
+            const bookingData = { name, whatsapp, property, date };
+
+            // Format dates for prefilled WhatsApp text
+            const formattedDate = new Date(date).toLocaleString();
+            const waMessage = encodeURIComponent(
+                `Hi Property Scouts! I'd like to book a scout visit.\n\n` +
+                `📋 *Booking Details*:\n` +
+                `• *Name*: ${name}\n` +
+                `• *WhatsApp*: ${whatsapp}\n` +
+                `• *Property Details*: ${property}\n` +
+                `• *Preferred Time*: ${formattedDate}\n\n` +
+                `Please confirm my scout dispatch slot!`
+            );
+            const waUrl = `https://wa.me/918738833206?text=${waMessage}`;
+
+            // Set the WhatsApp button link dynamically
+            document.getElementById('whatsapp-link').href = waUrl;
+
+            // Post booking details to SQLite backend
+            fetch('/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bookingData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Booking successfully synced to SQLite!");
+                    // Show success screen
+                    document.getElementById('formScreen').style.display = 'none';
+                    document.getElementById('successScreen').classList.add('active');
+                } else {
+                    alert("Error submitting booking: " + data.error);
+                }
+            })
+            .catch(err => {
+                console.error("Backend error, falling back to local flow:", err);
+                // Even if database sync fails, let them send on WhatsApp!
+                document.getElementById('formScreen').style.display = 'none';
+                document.getElementById('successScreen').classList.add('active');
+            });
+        }
+    </script>
+</body>
+</html>
