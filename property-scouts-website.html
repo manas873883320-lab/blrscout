@@ -26,6 +26,40 @@
             --purple: #7c3aed;
         }
 
+        /* Native Dark Theme Support (prevents forced-dark color washouts on mobile phones) */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary: #4ad67d;
+                --secondary: #60a5fa;
+                --accent: #fcd34d;
+                --light-bg: #121212;
+                --dark-text: #f3f4f6;
+                --gray-text: #9ca3af;
+                --border: #333333;
+                --white: #1a1a1a;
+                --success: #34d399;
+                --purple: #a78bfa;
+            }
+            body {
+                background: #121212;
+            }
+            header {
+                background: #1a1a1a !important;
+                border-bottom-color: #222 !important;
+            }
+            .stat-card, .service-card, .process-step, .testimonial-card, .pricing-card {
+                background: #1e1e1e !important;
+                border-color: #2a2a2a !important;
+            }
+            .pricing-card.featured {
+                border-color: var(--accent) !important;
+            }
+            .cta-btn {
+                background: linear-gradient(135deg, var(--accent) 0%, #fbbf24 100%) !important;
+                color: #121212 !important;
+            }
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -955,6 +989,20 @@
             }
             .hero-stats { grid-template-columns: 1fr; }
             .services, .how-it-works, .pricing, .gallery, .testimonials { padding: 3rem 1.5rem; }
+            
+            /* Responsive Hero typography adjustments */
+            .hero {
+                padding: 3rem 1.5rem;
+                gap: 2rem;
+            }
+            .hero-content h1 {
+                font-size: 2.2rem;
+                line-height: 1.25;
+            }
+            .hero-content p {
+                font-size: 1rem;
+                margin-bottom: 1.8rem;
+            }
             
             .modal-content {
                 padding: 2rem 1.5rem;
