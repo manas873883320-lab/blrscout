@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import smtplib
+import urllib.parse
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from flask import Flask, request, jsonify, send_from_directory
@@ -15,17 +16,10 @@ SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
 
 SENDER_EMAIL = 'threebrotherss100@gmail.com'
-SENDER_PASSWORD = ''  # Leave blank if you don't want email alerts. See note below.
+SENDER_PASSWORD = 'derc qyug pgye xzvx'  # Your Gmail App Password configured here
 
 # 👇 CHANGE THIS to the email address YOU actually check every day.
 RECEIVER_EMAIL = 'threebrotherss100@gmail.com'
-
-# To enable email alerts:
-# 1. Go to Google Account -> Security -> 2-Step Verification -> App Passwords
-# 2. Generate a new App Password, paste it into SENDER_PASSWORD above
-# 3. Change RECEIVER_EMAIL to the inbox you want enquiries sent to
-# If you skip this, every booking still gets saved to bookings.db and
-# shows up on your /admin dashboard — you just won't get an email alert.
 
 
 def send_automated_email(name, whatsapp, property_details, date):
@@ -69,17 +63,89 @@ def send_automated_email(name, whatsapp, property_details, date):
         return False
 
 
-def get_db():
-    conn = sqlite3.connect(DATABASE)
-    conn.row_factory = sqlite3.Row
-    return conn
+# ============================================
+# GENERIC DATABASE LAYER (PostgreSQL or SQLite)
+# ============================================
+def execute_query(query, params=(), fetchall=False, fetchone=False, commit=False):
+    db_url = os.environ.get('DATABASE_URL')
+    if db_url:
+        import pg8000
+        # Convert SQLite ? placeholders to PostgreSQL %s placeholders
+        query = query.replace('?', '%s')
+        
+        # Parse PostgreSQL URL
+        if db_url.startswith("postgres://"):
+            db_url = db_url.replace("postgres://", "postgresql://", 1)
+        url = urllib.parse.urlparse(db_url)
+        
+        conn = pg8000.connect(
+            user=url.username,
+            password=url.password,
+            host=url.hostname,
+            port=url.port or 5432,
+            database=url.path[1:]
+        )
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        
+        result = None
+        if fetchall:
+            rows = cursor.fetchall()
+            columns = [desc[0] for desc in cursor.description]
+            result = [dict(zip(columns, row)) for row in rows]
+        elif fetchone:
+            row = cursor.fetchone()
+            if row:
+                columns = [desc[0] for desc in cursor.description]
+                result = dict(zip(columns, row))
+                
+        if commit:
+            conn.commit()
+            
+        cursor.close()
+        conn.close()
+        return result
+    else:
+        conn = sqlite3.connect(DATABASE)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        
+        result = None
+        if fetchall:
+            rows = cursor.fetchall()
+            result = [dict(row) for row in rows]
+        elif fetchone:
+            row = cursor.fetchone()
+            if row:
+                result = dict(row)
+                
+        if commit:
+            conn.commit()
+            
+        cursor.close()
+        conn.close()
+        return result
 
 
 def init_db():
-    if not os.path.exists(DATABASE):
-        conn = get_db()
-        cursor = conn.cursor()
-        cursor.execute('''
+    db_url = os.environ.get('DATABASE_URL')
+    if db_url:
+        execute_query('''
+            CREATE TABLE IF NOT EXISTS bookings (
+                id SERIAL PRIMARY KEY,
+                name TEXT NOT NULL,
+                whatsapp TEXT NOT NULL,
+                property_details TEXT NOT NULL,
+                preferred_date TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'Pending',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ''', commit=True)
+        print("PostgreSQL Database initialized successfully!")
+    else:
+        # SQLite local database setup
+        execute_query('''
             CREATE TABLE IF NOT EXISTS bookings (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 name TEXT NOT NULL,
@@ -89,10 +155,8 @@ def init_db():
                 status TEXT NOT NULL DEFAULT 'Pending',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
-        ''')
-        conn.commit()
-        conn.close()
-        print("Database initialized successfully!")
+        ''', commit=True)
+        print("SQLite Database initialized successfully!")
 
 
 init_db()
@@ -131,15 +195,26 @@ def create_booking():
     if not all([name, whatsapp, property_details, preferred_date]):
         return jsonify({"error": "All fields are required"}), 400
 
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute('''
-        INSERT INTO bookings (name, whatsapp, property_details, preferred_date, status)
-        VALUES (?, ?, ?, ?, 'Pending')
-    ''', (name, whatsapp, property_details, preferred_date))
-    conn.commit()
-    booking_id = cursor.lastrowid
-    conn.close()
+    # Insert booking and return generated row details
+    # Postgres and SQLite (3.35.0+) both support the RETURNING clause!
+    try:
+        res = execute_query('''
+            INSERT INTO bookings (name, whatsapp, property_details, preferred_date, status)
+            VALUES (?, ?, ?, ?, 'Pending')
+            RETURNING id
+        ''', (name, whatsapp, property_details, preferred_date), fetchone=True, commit=True)
+        booking_id = res['id'] if res else None
+    except Exception as e:
+        print(f"Insert with RETURNING failed: {e}. Trying standard insert...")
+        # Fallback for old local SQLite versions without RETURNING clause
+        execute_query('''
+            INSERT INTO bookings (name, whatsapp, property_details, preferred_date, status)
+            VALUES (?, ?, ?, ?, 'Pending')
+        ''', (name, whatsapp, property_details, preferred_date), commit=True)
+        
+        # Get the max ID as fallback
+        last_row = execute_query('SELECT MAX(id) as last_id FROM bookings', fetchone=True)
+        booking_id = last_row['last_id'] if last_row else None
 
     # Best-effort email alert — booking is saved either way
     send_automated_email(name, whatsapp, property_details, preferred_date)
@@ -153,23 +228,7 @@ def create_booking():
 
 @app.route('/api/bookings', methods=['GET'])
 def get_bookings():
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM bookings ORDER BY created_at DESC')
-    rows = cursor.fetchall()
-    conn.close()
-
-    bookings = []
-    for row in rows:
-        bookings.append({
-            "id": row['id'],
-            "name": row['name'],
-            "whatsapp": row['whatsapp'],
-            "property_details": row['property_details'],
-            "preferred_date": row['preferred_date'],
-            "status": row['status'],
-            "created_at": row['created_at']
-        })
+    bookings = execute_query('SELECT * FROM bookings ORDER BY created_at DESC', fetchall=True)
     return jsonify(bookings)
 
 
@@ -180,16 +239,10 @@ def update_status(booking_id):
     if not status:
         return jsonify({"error": "Status is required"}), 400
 
-    conn = get_db()
-    cursor = conn.cursor()
-    cursor.execute('UPDATE bookings SET status = ? WHERE id = ?', (status, booking_id))
-    conn.commit()
-    rows_affected = cursor.rowcount
-    conn.close()
-
-    if rows_affected == 0:
-        return jsonify({"error": "Booking not found"}), 404
-
+    # Check database URL type for row count since cursor.rowcount behaves differently
+    db_url = os.environ.get('DATABASE_URL')
+    
+    execute_query('UPDATE bookings SET status = ? WHERE id = ?', (status, booking_id), commit=True)
     return jsonify({"success": True, "message": "Booking status updated successfully!"})
 
 
